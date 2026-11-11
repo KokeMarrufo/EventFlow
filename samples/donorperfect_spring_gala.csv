@@ -1,3 +1,3 @@
-event,date,amount,description
-Spring Gala,2026-03-15,17000,Aggregated gifts tagged Spring Gala (no donor names)
-total,,17000,
+event,date,amount,description,fund
+Spring Gala,2026-03-15,17000,Aggregated gifts tagged Spring Gala (no donor names),Ticket Sales
+total,,17000,,

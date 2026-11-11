@@ -7,6 +7,7 @@ import { getEventStatus, isEventComplete, missingDataNote } from "@/lib/event-st
 import { StatRow, StatTile } from "@/components/stat-tile";
 import { EventStatusBadge } from "@/components/status-badge";
 import { FileBreakdown } from "@/components/file-breakdown";
+import { CategoryChart } from "@/components/category-chart";
 import { ValidationIssues } from "@/components/validation-issues";
 import { LineItemsTable } from "@/components/line-items-table";
 import { TaskBoard } from "@/components/task-board";
@@ -93,6 +94,23 @@ async function EventDetailContent({
           tone={!complete ? "warning" : event.net >= 0 ? "success" : "crimson"}
         />
       </StatRow>
+
+      <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
+        <section className="rounded-xl border border-border bg-surface-container-lowest p-5 shadow-sm">
+          <h2 className="font-display text-base font-bold text-navy">Cost by category</h2>
+          <p className="mb-3 text-xs text-muted">
+            Where this event&apos;s money actually went (event-budget category / Sage GL account).
+          </p>
+          <CategoryChart data={event.costByCategory} kind="cost" />
+        </section>
+        <section className="rounded-xl border border-border bg-surface-container-lowest p-5 shadow-sm">
+          <h2 className="font-display text-base font-bold text-navy">Revenue by category</h2>
+          <p className="mb-3 text-xs text-muted">
+            Where this event&apos;s money came from (DonorPerfect fund / campaign).
+          </p>
+          <CategoryChart data={event.revenueByCategory} kind="revenue" />
+        </section>
+      </div>
 
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
         <section className="rounded-xl border border-border bg-surface-container-lowest p-5 shadow-sm">

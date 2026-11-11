@@ -1,12 +1,14 @@
 import { Suspense } from "react";
 import { CalendarRange, TrendingUp, ShieldCheck, FileSpreadsheet } from "lucide-react";
-import { getEventSummaries, getRecentImports } from "@/lib/reports";
+import { getEventSummaries, getOrgCostByCategory, getRecentImports } from "@/lib/reports";
 import { isEventComplete } from "@/lib/event-status";
 import { PilotBanner } from "@/components/pilot-banner";
 import { HeadlineSummary } from "@/components/headline-summary";
 import { StatRow, StatTile } from "@/components/stat-tile";
 import { EventsTable } from "@/components/events-table";
 import { RecentImports } from "@/components/recent-imports";
+import { EventComparisonChart } from "@/components/event-comparison-chart";
+import { CategoryChart } from "@/components/category-chart";
 import { EmptyState } from "@/components/empty-state";
 import { formatCurrency } from "@/components/format";
 
@@ -34,7 +36,11 @@ export default function EventsPage() {
 }
 
 async function EventsContent() {
-  const [{ events }, recentImports] = await Promise.all([getEventSummaries(), getRecentImports(5)]);
+  const [{ events }, recentImports, orgCostByCategory] = await Promise.all([
+    getEventSummaries(),
+    getRecentImports(5),
+    getOrgCostByCategory(),
+  ]);
 
   if (events.length === 0) {
     return (
@@ -93,6 +99,19 @@ async function EventsContent() {
           subtext={totalIssues > 0 ? `${totalIssues} validation issue${totalIssues === 1 ? "" : "s"} flagged` : "No open issues"}
         />
       </StatRow>
+
+      <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
+        <section className="rounded-xl border border-border bg-surface-container-lowest p-5 shadow-sm">
+          <h2 className="font-display text-base font-bold text-navy">Cost vs. revenue per event</h2>
+          <p className="mb-3 text-xs text-muted">Which events were actually worth running.</p>
+          <EventComparisonChart events={events} />
+        </section>
+        <section className="rounded-xl border border-border bg-surface-container-lowest p-5 shadow-sm">
+          <h2 className="font-display text-base font-bold text-navy">Where the money goes</h2>
+          <p className="mb-3 text-xs text-muted">Cost by category, across every event.</p>
+          <CategoryChart data={orgCostByCategory} kind="cost" />
+        </section>
+      </div>
 
       <EventsTable events={events} />
 
