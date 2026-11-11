@@ -13,7 +13,11 @@
  * - contains "expense", "cost", "fee" or "supplies"      -> cost
  * - otherwise, falls back to the sign of `amount` (negative = cost,
  *   positive = revenue), matching common GL sign conventions.
- * The stored amount is always the absolute value.
+ * The stored amount is always the absolute value. The `account` text
+ * itself is also read verbatim into LineItem.category (real Sage/GL
+ * exports are organized by chart-of-accounts entries like "6100 -
+ * Professional Fees" or "4000 - Contributed Revenue") — it powers the
+ * cost-by-category chart the same way event-budget's `category` does.
  *
  * A row whose `event` cell is "total"/"totals"/"grand total" is read as
  * the file's declared total, not a line item. Sage exports are also where
@@ -29,6 +33,7 @@ const COLUMNS = {
   date: "date",
   amount: "amount",
   description: "description",
+  category: "account",
 };
 
 const REVENUE_KEYWORDS = ["revenue", "income", "donation", "grant"];

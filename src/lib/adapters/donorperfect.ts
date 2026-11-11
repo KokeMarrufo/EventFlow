@@ -7,7 +7,12 @@
  * a CSV/XLSX that has ALREADY been aggregated per event before reaching
  * EventFlow, with columns:
  *
- *   event, date, amount[, description]
+ *   event, date, amount[, description][, fund]
+ *
+ * `fund` models DonorPerfect's real Fund/Campaign/Appeal fields (e.g.
+ * "Ticket Sales", "Sponsorship", "Individual Gifts", "Corporate Match",
+ * "Auction/Raffle") — read into LineItem.category, powering the
+ * revenue-by-category chart; null when the file has no such column.
  *
  * Per D3 (decision-log.md) and the project privacy rule, this adapter
  * deliberately never reads donor name/email/address columns even if a
@@ -33,6 +38,7 @@ const COLUMNS = {
   date: "date",
   amount: "amount",
   description: "description",
+  category: "fund",
 };
 
 function resolveKind(_row: RawRow, amount: number): KindResolution {

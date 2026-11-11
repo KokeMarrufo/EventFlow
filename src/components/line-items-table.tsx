@@ -23,8 +23,8 @@ export function LineItemsTable({ items }: { items: LineItem[] }) {
   return (
     <div className="space-y-6">
       {groups.map(([fileName, fileItems]) => (
-        <section key={fileName} className="overflow-hidden rounded-2xl border border-border bg-surface">
-          <header className="flex flex-wrap items-center justify-between gap-2 border-b border-border bg-navy/5 px-4 py-3">
+        <section key={fileName} className="overflow-hidden rounded-xl border border-border bg-surface-container-lowest shadow-sm">
+          <header className="flex flex-wrap items-center justify-between gap-2 border-b border-border bg-surface-container-low px-4 py-3">
             <h3 className="font-display text-sm font-semibold text-navy">{fileName}</h3>
             <span className="text-xs text-muted">
               {fileItems.length} line item{fileItems.length === 1 ? "" : "s"}
@@ -59,7 +59,7 @@ export function LineItemsTable({ items }: { items: LineItem[] }) {
                       <KindBadge kind={item.kind} />
                     </td>
                     <td
-                      className={`px-4 py-3 font-semibold ${
+                      className={`px-4 py-3 tabular-nums font-semibold ${
                         item.kind === "revenue" ? "text-success" : "text-navy"
                       }`}
                     >
@@ -68,7 +68,7 @@ export function LineItemsTable({ items }: { items: LineItem[] }) {
                     <td className="px-4 py-3 text-navy">{item.description}</td>
                     <td className="px-4 py-3 text-muted">{formatDate(item.occurredOn)}</td>
                     <td className="px-4 py-3">
-                      <code className="whitespace-nowrap rounded-full bg-sky/10 px-2 py-1 text-xs font-medium text-sky-dark">
+                      <code className="whitespace-nowrap rounded bg-blue-subtle px-2 py-1 text-xs font-medium text-primary">
                         traced to: {item.sourceFileName} &middot; row {item.sourceRow}
                       </code>
                     </td>

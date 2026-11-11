@@ -118,6 +118,10 @@ export interface ColumnMap {
   date: string;
   amount: string;
   description?: string;
+  /** Column read into LineItem.category (e.g. "category", "fund", or
+   * "account" when an adapter reuses another required column). Optional:
+   * null when the file has no such column. */
+  category?: string;
 }
 
 export type KindResolution =
@@ -182,6 +186,7 @@ export function buildLineItems(
     }
 
     const description = columns.description ? row[columns.description] ?? "" : "";
+    const category = columns.category ? row[columns.category]?.trim() || null : null;
     const dedupeKey = JSON.stringify([
       eventTag.trim().toLowerCase(),
       dateResult,
@@ -204,6 +209,7 @@ export function buildLineItems(
       kind: kindResult.kind,
       amount: kindResult.amount,
       description,
+      category,
       occurredOn: dateResult,
     });
   });

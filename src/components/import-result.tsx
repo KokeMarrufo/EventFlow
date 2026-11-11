@@ -24,21 +24,21 @@ const STATUS_LABEL: Record<ImportResponse["sourceFile"]["status"], string> = {
 
 function statusClass(status: ImportResponse["sourceFile"]["status"]): string {
   if (status === "parsed") return "bg-success text-white";
-  if (status === "parsed_with_errors") return "bg-gold text-navy";
-  return "bg-danger text-white";
+  if (status === "parsed_with_errors") return "bg-warning text-white";
+  return "bg-crimson text-white";
 }
 
 function ValidationErrorsList({ errors }: { errors: ValidationError[] }) {
   if (errors.length === 0) return null;
   return (
-    <div className="rounded-xl border border-gold/40 bg-gold/10 px-4 py-3">
+    <div className="rounded-lg border border-warning/30 bg-warning-subtle px-4 py-3">
       <p className="text-sm font-semibold text-navy">
         {errors.length} validation issue{errors.length === 1 ? "" : "s"}
       </p>
       <ul className="mt-2 space-y-1 text-sm text-navy/80">
         {errors.map((err, i) => (
           <li key={`${err.row}-${i}`}>
-            <span className="font-mono text-xs">row {err.row}</span> &mdash; {err.message}
+            <span className="font-mono text-xs">row {err.row}</span> &middot; {err.message}
           </li>
         ))}
       </ul>
@@ -58,7 +58,7 @@ export function ImportResultPanel({ outcome }: { outcome: ImportOutcome }) {
       >
         <span
           aria-hidden="true"
-          className="h-4 w-4 animate-spin rounded-full border-2 border-sky border-t-transparent"
+          className="h-4 w-4 animate-spin rounded-full border-2 border-mission-sky border-t-transparent"
         />
         Uploading and parsing file&hellip;
       </div>
@@ -67,11 +67,11 @@ export function ImportResultPanel({ outcome }: { outcome: ImportOutcome }) {
 
   if (outcome.kind === "not_implemented") {
     return (
-      <div role="status" className="rounded-xl border border-sky/40 bg-sky/10 px-4 py-3 text-sm text-navy">
+      <div role="status" className="rounded-xl border border-mission-sky/40 bg-blue-subtle px-4 py-3 text-sm text-navy">
         <p className="font-semibold">Import isn&apos;t live yet</p>
         <p className="mt-1 text-navy/80">{outcome.message}</p>
         <p className="mt-2 text-xs text-muted">
-          Expected during the pilot build &mdash; the backend parsing work (
+          Expected during the pilot build. The backend parsing work (
           <code className="rounded bg-navy/10 px-1 py-0.5">lib/adapters/</code>) is in progress.
         </p>
       </div>

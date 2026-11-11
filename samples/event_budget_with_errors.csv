@@ -1,0 +1,6 @@
+event,date,amount,description
+Holiday Appeal,2026-12-01,-200,Postage
+Holiday Appeal,2026-12-02,,Printing (amount accidentally left blank)
+Holiday Appeal,13/45/2026,-75,Design fee (date is not a real date)
+,2026-12-03,-40,Row with no event tag at all
+Holiday Appeal,2026-12-01,-200,Postage

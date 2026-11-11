@@ -5,7 +5,7 @@
  * (see docs/evidence-log.md, E1/E5 — the planning process is observed, the
  * file *shape* is not). This adapter assumes a CSV/XLSX with columns:
  *
- *   event, date, amount, description[, kind]
+ *   event, date, amount, description[, category][, kind]
  *
  * - `kind` is optional and, if present, must be "cost" or "revenue"
  *   (case-insensitive) — a budget can include a few planned-revenue lines
@@ -13,6 +13,10 @@
  * - If `kind` is absent, the sign of `amount` decides it: negative (or a
  *   parenthesized accounting negative, e.g. "(500.00)") is a cost, positive
  *   is revenue. The stored amount is always the absolute value.
+ * - `category` is optional free text — modeled on how nonprofit event
+ *   budgets are typically organized (Venue, Catering, Decor & Signage,
+ *   Marketing & Printing, AV/Equipment, Staffing, Insurance, Other). Powers
+ *   the cost-by-category chart; null when the file has no such column.
  * - A row whose `event` cell is "total"/"totals"/"grand total" is read as
  *   the file's declared total, not a line item.
  *
@@ -28,6 +32,7 @@ const COLUMNS = {
   date: "date",
   amount: "amount",
   description: "description",
+  category: "category",
 };
 
 function resolveKind(row: RawRow, amount: number): KindResolution {

@@ -9,8 +9,8 @@ export const NAV_LINKS = [
 ] as const;
 
 function linkClassName(active: boolean) {
-  return `rounded-full px-4 py-2 text-sm font-semibold transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold ${
-    active ? "bg-white/15 text-white" : "text-white/80 hover:bg-white/10 hover:text-white"
+  return `rounded-lg px-3 py-1.5 text-sm font-semibold transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary ${
+    active ? "bg-blue-subtle text-primary" : "text-muted hover:bg-surface-container-low hover:text-navy"
   }`;
 }
 

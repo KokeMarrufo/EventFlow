@@ -1,40 +1,57 @@
-# Design Reference — downtownmission.com (Nov 2026 snapshot)
+# Design Reference — "Mission Operations & Data Hub" (Nov 2026)
 
-Pulled from the live site to approximate Downtown Mission's visual identity
-for the EventFlow dashboard. **Not an official brand guide** — confirm with
-the Mission if this ships beyond an internal pilot.
+**Current system, in force.** Provided by the team as a dedicated design
+system for an internal ops/data tool (distinct from downtownmission.com's
+public marketing site — see "Superseded" below). Not an official Mission
+brand guide — confirm before this ships beyond an internal pilot.
 
 ## Palette
 
 | Token | Hex | Used for |
 |-------|-----|----------|
-| `navy` | `#142036` | Header, hero backgrounds, body headings |
-| `sky` | `#29ABE0` | Secondary CTAs, info banners, link accents |
-| `gold` | `#F0B94D` | Primary highlight / "donate"-style emphasis, outlined callouts |
-| `surface` | `#FFFFFF` | Cards |
-| `background` | `#F7F9FC` | Page background |
+| `navy` | `#0F2441` | Structural chrome, heavy headings, data labels |
+| `primary` | `#00458B` | CTAs, active nav, section identifiers, focus rings |
+| `mission-sky` | `#0088CC` | Links, info banners, progress bars |
+| `crimson` | `#D9383A` | Destructive actions, "down"/error states |
+| `success` / `warning` | `#1E7E45` / `#C05621` | Status semantics (ahead vs. incomplete) |
+| `surface-container-*` | `#FFFFFF`–`#E1E3E4` | Card/canvas tonal layering (see `globals.css`) |
+
+Status badges and chips are **text + background color only, no dot/icon** —
+the color and label alone carry the state (`src/components/status-badge.tsx`).
 
 ## Type
 
-Headings on the live site use a rounded geometric sans (letterforms like
-"Baloo"/"Quicksand"/"Comfortaa"). We use **Baloo 2** for headings/display
-text and **Inter** for body text as a close, freely-licensed approximation
-— see `src/app/layout.tsx` and the `--font-display` token in `globals.css`.
+**Plus Jakarta Sans** (display/headings, 600–800 weight) + **Inter**
+(body/data) — see `src/app/layout.tsx`. Numeric columns (currency, counts)
+use `.tabular-nums` so digits don't jitter.
 
-## Layout cues carried into EventFlow
+## Layout patterns adopted
 
-- Rounded-pill outline buttons for secondary actions, solid filled pill for
-  the primary action (mirrors their "DONATE TODAY" / nav CTA treatment).
-- Diagonal accent lines / angled dividers between navy hero sections and
-  white content (kept subtle — EventFlow is an internal ops tool, not a
-  donation site).
-- Large bold stat callouts in overlapping rounded cards (seen on their
-  `/impact` page) — reused for the per-event net/cost/revenue summary tiles.
-- Light, high-contrast content sections (white/near-white) between colored
-  bands, so dense tabular data stays readable.
+- KPI telemetry row: 4 cards, each an icon chip + label + big number +
+  subtext, optional thin progress bar (`stat-tile.tsx`).
+- Dense, searchable/filterable data tables with text-only status chips, a
+  "Files" disclosure instead of inline filename badges.
+- A real system-wide audit trail ("Recent imports") separate from
+  per-event totals (`recent-imports.tsx`, `lib/reports#getRecentImports`).
+- Per-entity bento-style detail cards (cost/revenue-by-file breakdown, data
+  quality notes) instead of one flat line-items table.
+- lucide-react icons (not the reference's Material Symbols font ligatures —
+  more reliable in a compiled React app, same visual language).
 
 ## What we deliberately did not copy
 
+- The reference mockup's actual *content* (food poundage, volunteer
+  rosters, GPS trucks, fake staff names/photos, fictional "live connector"
+  statuses) — that describes a food-bank/volunteer-logistics product, not
+  EventFlow's per-event financial reconciliation scope. Every number this
+  app shows is real and derived from `lib/reports`/`lib/tasks`, never a
+  static mockup figure.
 - Donation/CTA-heavy marketing tone — EventFlow is an internal staff tool.
-- Public-facing imagery (photos of clients) — not appropriate for an
-  internal financial reporting tool.
+
+## Superseded
+
+An earlier pass of this file approximated downtownmission.com's public
+marketing palette (navy `#142036` / sky `#29ABE0` / gold `#F0B94D`, Baloo 2
+font). That was replaced wholesale by the system above per direct
+team feedback that the marketing-site look read as too simple for an
+internal ops tool. See git history if that palette is ever needed again.

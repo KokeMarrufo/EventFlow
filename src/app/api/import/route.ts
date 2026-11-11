@@ -138,6 +138,7 @@ export async function POST(req: Request) {
           kind: item.kind,
           amount: item.amount.toFixed(2),
           description: item.description,
+          category: item.category,
           occurredOn: item.occurredOn,
         })
         .returning();
@@ -152,6 +153,7 @@ export async function POST(req: Request) {
         kind: inserted.kind as LineItem["kind"],
         amount: Number(inserted.amount),
         description: inserted.description,
+        category: inserted.category,
         occurredOn: inserted.occurredOn,
       });
     }

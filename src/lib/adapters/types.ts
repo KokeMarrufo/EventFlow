@@ -12,6 +12,7 @@ export interface ParsedLineItem {
   kind: LineItemKind;
   amount: number;
   description: string;
+  category: string | null;
   occurredOn: string | null; // ISO date, or null if the source had none
 }
 

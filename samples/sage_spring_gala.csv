@@ -1,0 +1,4 @@
+event,date,amount,account,description
+Spring Gala,2026-03-31,-250,Expense - Bank Fees,Card processing fees on event ticket sales
+Spring Gala,2026-03-31,-150,Expense - Insurance,Event liability insurance (pro-rated)
+total,,-400,,

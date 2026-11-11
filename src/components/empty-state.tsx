@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { Inbox } from "lucide-react";
 
 /**
  * Generic empty / not-found / error placeholder for a content area. Used for
@@ -16,9 +17,10 @@ export function EmptyState({
   return (
     <div
       role="status"
-      className="rounded-2xl border border-dashed border-border bg-surface px-6 py-12 text-center"
+      className="rounded-xl border border-dashed border-border bg-surface-container-lowest px-6 py-12 text-center"
     >
-      <p className="font-display text-lg font-semibold text-navy">{title}</p>
+      <Inbox aria-hidden="true" className="mx-auto h-8 w-8 text-outline" />
+      <p className="mt-3 font-display text-lg font-bold text-navy">{title}</p>
       {description ? (
         <p className="mx-auto mt-2 max-w-md text-sm text-muted">{description}</p>
       ) : null}

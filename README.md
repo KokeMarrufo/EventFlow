@@ -25,8 +25,28 @@ confirmed by front-line staff (see `docs/evidence-log.md`).
 | Bucket | Contents |
 |--------|----------|
 | Must | Per-event cost/revenue/net; total across events; traceability to source file |
-| Maybe | Donor counts per event; event comparison; live API; task manager |
+| Maybe | Donor counts per event; event comparison; live API |
 | Not now | Donor-level detail; forecasting; a new fundraising platform |
+
+**Deviation from the table above:** a lightweight per-event task board (see
+"Features" below) was added ahead of the "Maybe" gating condition, on
+direct team request — kept fully decoupled from the financial data so it
+doesn't affect the Must-have scope's correctness or risk.
+
+## Features
+
+- **Per-event report**: cost, revenue, net, status (Ahead/Down/Break-even/
+  Incomplete) — an event missing one side never shows a misleading net.
+- **Import**: CSV/XLSX upload per source type, with validation errors and
+  reconciliation (declared vs. computed total) shown per file.
+- **Audit trail**: a system-wide "recent imports" list (`lib/reports
+  #getRecentImports`) — what's actually been ingested, not just per-event
+  totals.
+- **Event tasks**: a small Monday.com-style board per event (To do / In
+  progress / Done, assignee, due date) for logistics/follow-ups —
+  `src/db/schema.ts#tasks`, `src/lib/tasks.ts`, `src/components/
+  task-board.tsx`. Independent of the financial data; deleting tasks never
+  touches line items or vice versa.
 
 ## Architecture
 
@@ -81,7 +101,7 @@ Open http://localhost:3000.
 - `docs/team-brief.md` — scope, roles, risks
 - `docs/success-thresholds-PLACEHOLDER.md` — go/no-go gate (~Nov 14, 2026)
 - `docs/operational-readiness.md` — staff meeting, sample data, permissions
-- `docs/design-reference.md` — Downtown Mission brand cues used in the UI
+- `docs/design-reference.md` — the "Mission Operations & Data Hub" design system used in the UI
 - `docs/artifacts/` — interview transcript & follow-up email placeholders
 
 ## Privacy

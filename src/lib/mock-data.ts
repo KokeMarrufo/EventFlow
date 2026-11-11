@@ -5,7 +5,7 @@
  * anonymized exports (§5.3) are obtained. Replace once Iteration 0 sample
  * files arrive.
  */
-import type { EventDetail, EventSummary, LineItem } from "./types";
+import type { EventSummary, LineItem } from "./types";
 
 export const MOCK_EVENTS: EventSummary[] = [
   {
@@ -16,6 +16,8 @@ export const MOCK_EVENTS: EventSummary[] = [
     net: 12800,
     lineItemCount: 18,
     sourceFiles: ["event_budget_spring_gala.csv", "donorperfect_export_q1.csv", "sage_gl_march.csv"],
+    hasCostData: true,
+    hasRevenueData: true,
   },
   {
     eventId: "evt_third_party_walk",
@@ -25,6 +27,8 @@ export const MOCK_EVENTS: EventSummary[] = [
     net: 140200,
     lineItemCount: 42,
     sourceFiles: ["event_budget_walk.csv", "platform_export_walk.csv", "sage_gl_year.csv"],
+    hasCostData: true,
+    hasRevenueData: true,
   },
   {
     eventId: "evt_holiday_appeal",
@@ -34,6 +38,22 @@ export const MOCK_EVENTS: EventSummary[] = [
     net: 4700,
     lineItemCount: 11,
     sourceFiles: ["event_budget_holiday.csv", "donorperfect_export_q4.csv"],
+    hasCostData: true,
+    hasRevenueData: true,
+  },
+  {
+    // Deliberately incomplete demo event: only the budget side has been
+    // imported, no DonorPerfect/Sage data yet. Shows how the dashboard
+    // handles a partial import instead of a misleading "loss".
+    eventId: "evt_fall_fundraiser",
+    eventName: "Fall Fundraiser (demo, incomplete)",
+    totalCost: 900,
+    totalRevenue: 0,
+    net: -900,
+    lineItemCount: 2,
+    sourceFiles: ["event_budget_fall.csv"],
+    hasCostData: true,
+    hasRevenueData: false,
   },
 ];
 
@@ -78,8 +98,3 @@ export const MOCK_LINE_ITEMS: Record<string, LineItem[]> = {
   ],
 };
 
-export function getMockEventDetail(eventId: string): EventDetail | null {
-  const summary = MOCK_EVENTS.find((e) => e.eventId === eventId);
-  if (!summary) return null;
-  return { ...summary, lineItems: MOCK_LINE_ITEMS[eventId] ?? [] };
-}

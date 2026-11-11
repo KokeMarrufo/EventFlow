@@ -1,6 +1,7 @@
 "use client";
 
 import { useId, useRef, useState, type FormEvent } from "react";
+import { UploadCloud, FileSpreadsheet } from "lucide-react";
 import type { ImportResponse, SourceType } from "@/lib/types";
 import { PillButton } from "./pill-button";
 import { ImportResultPanel, type ImportOutcome } from "./import-result";
@@ -108,7 +109,7 @@ export function UploadForm() {
 
   return (
     <div className="space-y-6">
-      <form onSubmit={handleSubmit} className="space-y-5 rounded-2xl border border-border bg-surface p-6">
+      <form onSubmit={handleSubmit} className="space-y-5 rounded-xl border border-border bg-surface-container-lowest p-6 shadow-sm">
         <div>
           <label htmlFor={fileInputId} className="mb-2 block text-sm font-semibold text-navy">
             Source file
@@ -125,20 +126,28 @@ export function UploadForm() {
               const dropped = e.dataTransfer.files?.[0] ?? null;
               if (dropped) pickFile(dropped);
             }}
-            className={`flex flex-col items-center justify-center gap-2 rounded-xl border-2 border-dashed px-4 py-8 text-center transition-colors ${
-              isDragging ? "border-sky bg-sky/10" : "border-border bg-background/60"
+            className={`flex flex-col items-center justify-center gap-2 rounded-xl border-2 border-dashed px-4 py-10 text-center transition-colors ${
+              isDragging ? "border-mission-sky bg-blue-subtle" : "border-border bg-surface-container-low"
             }`}
           >
+            <span className="flex h-12 w-12 items-center justify-center rounded-full bg-surface-container-lowest text-mission-sky shadow-sm">
+              {file ? (
+                <FileSpreadsheet className="h-6 w-6" aria-hidden="true" />
+              ) : (
+                <UploadCloud className="h-6 w-6" aria-hidden="true" />
+              )}
+            </span>
             <p className="text-sm text-navy">
               {file ? <span className="font-semibold">{file.name}</span> : "Drag a CSV or Excel file here, or"}
             </p>
             <button
               type="button"
               onClick={() => fileInputRef.current?.click()}
-              className="rounded-full border border-sky px-4 py-1.5 text-sm font-semibold text-sky-dark hover:bg-sky hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold"
+              className="rounded-lg border border-primary px-4 py-1.5 text-sm font-semibold text-primary hover:bg-blue-subtle focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
             >
               Browse files
             </button>
+            <p className="text-xs text-muted">Supports .csv, .xlsx and .xls</p>
             <input
               ref={fileInputRef}
               id={fileInputId}
@@ -158,7 +167,7 @@ export function UploadForm() {
             id={sourceTypeId}
             value={sourceType}
             onChange={(e) => setSourceType(e.target.value as SourceType)}
-            className="w-full rounded-lg border border-border bg-white px-3 py-2 text-sm text-navy focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold"
+            className="w-full rounded-lg border border-border bg-surface-container-lowest px-3 py-2 text-sm text-navy focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
           >
             {SOURCE_TYPES.map((opt) => (
               <option key={opt.value} value={opt.value}>
@@ -180,7 +189,7 @@ export function UploadForm() {
             value={declaredTotal}
             onChange={(e) => setDeclaredTotal(e.target.value)}
             placeholder="e.g. 17000.00"
-            className="w-full rounded-lg border border-border bg-white px-3 py-2 text-sm text-navy focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold"
+            className="w-full rounded-lg border border-border bg-surface-container-lowest px-3 py-2 text-sm text-navy focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
           />
           <p className="mt-1 text-xs text-muted">
             Used to reconcile against the computed total from the file, if provided.
