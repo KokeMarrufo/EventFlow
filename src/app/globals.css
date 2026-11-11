@@ -1,0 +1,55 @@
+@import "tailwindcss";
+
+/*
+  Brand tokens approximated from https://downtownmission.com/ (Nov 2026 snapshot):
+  navy header/hero, bright "sky" blue accents, gold/amber CTA highlights,
+  rounded geometric headline type, pill-shaped outline buttons.
+  Placeholder until the Mission confirms an actual brand/style guide.
+*/
+:root {
+  --background: #f7f9fc;
+  --foreground: #142036;
+
+  --color-navy: #142036;
+  --color-navy-light: #1f3358;
+  --color-sky: #29abe0;
+  --color-sky-dark: #1a8ec4;
+  --color-gold: #f0b94d;
+  --color-gold-dark: #d99e2b;
+  --color-surface: #ffffff;
+  --color-border: #e2e8f0;
+  --color-muted: #64748b;
+  --color-success: #1a9c6c;
+  --color-danger: #d1445a;
+
+  --font-display: var(--font-baloo), "Baloo 2", ui-rounded, sans-serif;
+  --font-body: var(--font-inter), "Inter", ui-sans-serif, sans-serif;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-navy: var(--color-navy);
+  --color-navy-light: var(--color-navy-light);
+  --color-sky: var(--color-sky);
+  --color-sky-dark: var(--color-sky-dark);
+  --color-gold: var(--color-gold);
+  --color-gold-dark: var(--color-gold-dark);
+  --color-surface: var(--color-surface);
+  --color-border: var(--color-border);
+  --color-muted: var(--color-muted);
+  --color-success: var(--color-success);
+  --color-danger: var(--color-danger);
+  --font-sans: var(--font-body);
+  --font-display: var(--font-display);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-body);
+}
+
+h1, h2, h3, .font-display {
+  font-family: var(--font-display);
+}
