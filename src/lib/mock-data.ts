@@ -69,6 +69,7 @@ export const MOCK_LINE_ITEMS: Record<string, LineItem[]> = {
       kind: "cost",
       amount: 1800,
       description: "Venue rental",
+      category: "Venue",
       occurredOn: "2026-03-14",
     },
     {
@@ -81,6 +82,7 @@ export const MOCK_LINE_ITEMS: Record<string, LineItem[]> = {
       kind: "cost",
       amount: 2400,
       description: "Catering",
+      category: "Catering",
       occurredOn: "2026-03-14",
     },
     {
@@ -93,6 +95,7 @@ export const MOCK_LINE_ITEMS: Record<string, LineItem[]> = {
       kind: "revenue",
       amount: 17000,
       description: "Aggregated gifts tagged Spring Gala (no donor names)",
+      category: "Ticket Sales",
       occurredOn: "2026-03-15",
     },
   ],

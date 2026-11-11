@@ -19,6 +19,15 @@ import { db, sql } from "./client";
 import { events, lineItems, sourceFiles } from "./schema";
 import { MOCK_EVENTS, MOCK_LINE_ITEMS } from "../lib/mock-data";
 
+/** Realistic categories for the events whose line items are synthesized
+ * below (only Spring Gala has full per-line detail in MOCK_LINE_ITEMS) so
+ * the cost/revenue-by-category charts have more than one data point. */
+const SYNTHESIZED_CATEGORIES: Record<string, { cost: string; revenue: string }> = {
+  "Third-Party Platform Walk (demo)": { cost: "Event Staffing", revenue: "Third-Party Platform Proceeds" },
+  "Holiday Appeal Campaign (demo)": { cost: "Printing & Postage", revenue: "Individual Gifts" },
+  "Fall Fundraiser (demo, incomplete)": { cost: "Venue", revenue: "Ticket Sales" },
+};
+
 function inferSourceType(filename: string): "event_budget" | "donorperfect" | "sage" {
   const lower = filename.toLowerCase();
   if (lower.includes("donorperfect") || lower.includes("platform")) return "donorperfect";
@@ -75,6 +84,7 @@ async function main() {
           kind: item.kind,
           amount: item.amount.toFixed(2),
           description: item.description,
+          category: item.category,
           occurredOn: item.occurredOn,
         });
       }
@@ -98,6 +108,7 @@ async function main() {
           kind: "cost",
           amount: summary.totalCost.toFixed(2),
           description: `Costs (seed demo total for ${summary.eventName})`,
+          category: SYNTHESIZED_CATEGORIES[summary.eventName]?.cost ?? null,
           occurredOn: null,
         });
       }
@@ -119,6 +130,7 @@ async function main() {
           kind: "revenue",
           amount: summary.totalRevenue.toFixed(2),
           description: `Revenue (seed demo total for ${summary.eventName})`,
+          category: SYNTHESIZED_CATEGORIES[summary.eventName]?.revenue ?? null,
           occurredOn: null,
         });
       }

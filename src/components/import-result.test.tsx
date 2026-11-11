@@ -66,6 +66,7 @@ describe("ImportResultPanel", () => {
           kind: "cost",
           amount: 1800,
           description: "Venue rental",
+          category: "Venue",
           occurredOn: "2026-03-14",
         },
         {
@@ -78,6 +79,7 @@ describe("ImportResultPanel", () => {
           kind: "revenue",
           amount: 17000,
           description: "Aggregated gifts",
+          category: "Ticket Sales",
           occurredOn: "2026-03-15",
         },
       ],
@@ -125,6 +127,7 @@ describe("ImportResultPanel", () => {
           kind: "cost",
           amount: 500,
           description: "Printing",
+          category: null,
           occurredOn: null,
         },
       ],
